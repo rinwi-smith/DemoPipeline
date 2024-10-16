@@ -9,22 +9,24 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
         stage('Test') {
             steps {
-                sh 'npm test'
+                bat 'npm test'
             }
         }
         stage('Build') {
             steps {
-                echo 'Building the application...'
+                bat 'npm run build' 
+		echo 'Building the application...'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying the application...'
+                bat 'npm run deploy' 
+		echo 'Deploying the application...'
             }
         }
     }
