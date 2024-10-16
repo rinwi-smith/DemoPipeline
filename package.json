@@ -4,7 +4,8 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha",
-    "build": "echo 'Building the application...'"
+    "build": "echo 'Building the application...'",
+    "deploy": "echo 'Deploying the application...'"
   },
   "keywords": [],
   "author": "",
