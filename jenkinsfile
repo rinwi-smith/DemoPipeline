@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-username/your-repo.git'
+                git credentialsId: 'github-token', url: 'https://github.com/rinwi-smith/DemoPipeline.git'
             }
         }
         stage('Install Dependencies') {
@@ -20,15 +20,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                // Your build commands (e.g., npm build or other build tools)
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Deployment steps (e.g., push to production server)
             }
         }
     }
 }
-
