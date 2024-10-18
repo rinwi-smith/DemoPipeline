@@ -47,5 +47,22 @@ pipeline {
 		echo 'Deploying the application...'
             }
         }
+         post {
+        success {
+            emailext(
+                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' was successful.",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+                to: 'your-email@example.com'
+            )
+        }
+        failure {
+            emailext(
+                subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has failed.",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+                to: 'your-email@example.com'
+            )
+        }
     }
 }
