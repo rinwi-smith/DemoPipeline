@@ -14,7 +14,9 @@ pipeline {
         }
         stage('Lint Code') {
             steps {
-                bat 'npx eslint .'
+                bat 'npm run lint'
+                bat 'npm eslint .'
+                echo 'Eslint complete'
             }
         }
         stage('Test') {
@@ -25,6 +27,7 @@ pipeline {
         stage('Code Coverage') {
             steps {
                 bat 'npm run coverage'
+                echo 'Code coverage report generated.'
                 publishHTML(target: [
                     reportDir: 'coverage',
                     reportFiles: 'index.html',
