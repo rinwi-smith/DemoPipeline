@@ -26,6 +26,7 @@ pipeline {
         }
         stage('Code Coverage') {
             steps {
+                bat './node_modules/.bin/nyc npm test'
                 bat 'nyc npm test'  
                 echo 'Code coverage report generated.'
             }
