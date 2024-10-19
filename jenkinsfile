@@ -42,6 +42,18 @@ pipeline {
                 echo 'Deploying the application...'
             }
         }
+        stage('Archive Coverage') {
+            steps {
+                publishHTML(target: [
+                reportName: 'Code Coverage Report',
+                reportDir: 'coverage', 
+                reportFiles: 'index.html',
+                alwaysLinkToLastBuild: true,
+                keepAll: true
+               ])
+            }
+        }
+
     }
     
     post {
