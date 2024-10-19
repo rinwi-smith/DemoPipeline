@@ -14,40 +14,46 @@ pipeline {
         }
         stage('Lint Code') {
             steps {
-                bat 'npm run lint'
-                bat 'npm eslint .'
-                echo 'Eslint complete'
+                bat 'npm run lint'   
+                echo 'Linting complete'
             }
         }
         stage('Test') {
             steps {
                 bat 'npm test'
+                echo 'Testing complete'
             }
         }
         stage('Code Coverage') {
             steps {
-                bat 'npm run coverage'
+                bat 'nyc npm test'  
                 echo 'Code coverage report generated.'
-                publishHTML(target: [
-                    reportDir: 'coverage',
-                    reportFiles: 'index.html',
-                    reportName: 'Code Coverage Report'
-                ])
             }
         }
         stage('Build') {
             steps {
-                bat 'npm run build' 
-		echo 'Building the application...'
+                bat 'npm run build'
+                echo 'Building the application...'
             }
         }
         stage('Deploy') {
             steps {
-                bat 'npm run deploy' 
-		echo 'Deploying the application...'
+                bat 'npm run deploy'
+                echo 'Deploying the application...'
             }
         }
-         post {
+    }
+    
+    post {
+        always {
+            // Archive coverage reports
+            publishHTML(target: [
+                reportDir: 'coverage',
+                reportFiles: 'index.html',
+                alwaysLinkToLastBuild: true,
+                reportName: 'Code Coverage Report'
+            ])
+        }
         success {
             emailext(
                 subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
