@@ -6,7 +6,7 @@
     "test": "mocha",
     "build": "echo 'Building the application...'",
     "deploy": "echo 'Deploying the application...'",
-    "lint": "eslint .", 
+    "lint": "eslint .",
     "coverage": "nyc --reporter=html --reporter=text mocha"
   },
   "keywords": [],
