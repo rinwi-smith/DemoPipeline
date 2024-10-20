@@ -27,7 +27,13 @@
       "text",
       "lcov"
     ],
-    "report-dir": "./coverage"
+    "report-dir": "./coverage",
+    "include": [
+      "src/**/*.js"  
+    ],
+    "exclude": [
+      "test/**/*.js" 
+    ]
   },
   "eslintConfig": {
     "env": {
