@@ -23,7 +23,10 @@
     "typescript-eslint": "^8.10.0"
   },
   "nyc": {
-    "reporter": ["text", "lcov"],
+    "reporter": [
+      "text",
+      "lcov"
+    ],
     "report-dir": "./coverage"
   },
   "eslintConfig": {
