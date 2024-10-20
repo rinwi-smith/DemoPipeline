@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Use the local version of nyc
-                    bat './node_modules/.bin/nyc npm test'
+                    bat 'node_modules\\.bin\\nyc npm test'
                 }
                 bat 'npm test'
                 echo 'Testing complete'
