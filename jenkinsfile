@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Checkout') {
             steps {
@@ -21,17 +21,18 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Use the local version of nyc
+                    // Run the local nyc and npm test using bat on Windows
                     bat 'node_modules\\.bin\\nyc npm test'
                 }
-                bat 'npm test'
                 echo 'Testing complete'
             }
         }
         stage('Code Coverage') {
             steps {
-                bat './node_modules/.bin/nyc npm test'
-                bat 'nyc npm test'  
+                script {
+                    // Generate coverage report using nyc
+                    bat 'node_modules\\.bin\\nyc --reporter=html --reporter=text npm test'
+                }
                 echo 'Code coverage report generated.'
             }
         }
@@ -50,21 +51,19 @@ pipeline {
         stage('Archive Coverage') {
             steps {
                 publishHTML(target: [
-                reportName: 'Code Coverage Report',
-                reportDir: 'coverage', 
-                reportFiles: 'index.html',
-                alwaysLinkToLastBuild: true,
-                keepAll: true
-               ])
+                    reportName: 'Code Coverage Report',
+                    reportDir: 'coverage', 
+                    reportFiles: 'index.html',
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true
+                ])
             }
         }
-
     }
-    
+
     post {
         always {
-            archiveArtifacts artifacts: 'coverage/**', 
-            allowEmptyArchive: true
+            archiveArtifacts artifacts: 'coverage/**', allowEmptyArchive: true
             // Archive coverage reports
             publishHTML(target: [
                 reportDir: 'coverage',
