@@ -73,20 +73,14 @@ pipeline {
             ])
         }
         success {
-            emailext(
-                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' was successful.",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                to: 'rinwismith@gmail.com'
-            )
+            mail to: 'daminesmith05@gmail.com',
+                 subject: "Build Successful: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
+                 body: "The build ${env.JOB_NAME} [${env.BUILD_NUMBER}] succeeded. Check it at ${env.BUILD_URL}"
         }
         failure {
-            emailext(
-                subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has failed.",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                to: 'rinwismith@gmail.com'
-            )
+            mail to: 'daminesmith05@gmail.com',
+                 subject: "Build Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
+                 body: "The build ${env.JOB_NAME} [${env.BUILD_NUMBER}] failed. Check it at ${env.BUILD_URL}"
         }
     }
 }

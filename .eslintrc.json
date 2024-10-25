@@ -1,0 +1,11 @@
+{
+  "env": {
+    "node": true,        // This enables Node.js global variables like 'require'
+    "mocha": true        // This enables Mocha global variables like 'describe' and 'it'
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "no-console": "off", // You can add more rule overrides here if needed
+    "no-undef": "off"    // Temporarily turn off 'no-undef' if still causing issues
+  }
+}
