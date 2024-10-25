@@ -80,7 +80,8 @@ pipeline {
                 Check it out here: ${env.BUILD_URL}
                 """,
                 recipientProviders: [[$class: 'CulpritsRecipientProvider'], [$class: 'DevelopersRecipientProvider']],
-                to: "daminesmith05@gmail.com"
+                to: "daminesmith05@gmail.com",
+                from: "daminesmith05@gmail.com"
             )
         }
 
@@ -92,7 +93,8 @@ pipeline {
                 Check the console output for more details: ${env.BUILD_URL}
                 """,
                 recipientProviders: [[$class: 'CulpritsRecipientProvider'], [$class: 'DevelopersRecipientProvider']],
-                to: "daminesmith05@gmail.com"
+                to: "daminesmith05@gmail.com",
+                from: "daminesmith05@gmail.com"
             )
         }
     }
