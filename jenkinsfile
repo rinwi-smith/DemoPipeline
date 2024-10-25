@@ -72,15 +72,21 @@ pipeline {
                 reportName: 'Code Coverage Report'
             ])
         }
-        success {
-            mail to: 'daminesmith05@gmail.com',
-                 subject: "Build Successful: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
-                 body: "The build ${env.JOB_NAME} [${env.BUILD_NUMBER}] succeeded. Check it at ${env.BUILD_URL}"
-        }
-        failure {
-            mail to: 'daminesmith05@gmail.com',
-                 subject: "Build Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
-                 body: "The build ${env.JOB_NAME} [${env.BUILD_NUMBER}] failed. Check it at ${env.BUILD_URL}"
-        }
+       success {
+        emailext(
+            subject: "SUCCESS: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+            body: "Good news! The build was successful.\n\nCheck it out here: ${env.BUILD_URL}",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+            to: "recipient@example.com"
+        )
+    }
+    failure {
+        emailext(
+            subject: "FAILURE: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+            body: "The build failed.\n\nCheck the console output for more details: ${env.BUILD_URL}",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+            to: "recipient@example.com"
+        )
+    }
     }
 }
