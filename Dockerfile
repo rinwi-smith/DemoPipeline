@@ -1,21 +1,30 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+# Stage 1: Build the application
+FROM node:18 AS build
 
-# Set the working directory inside the container
-WORKDIR /usr/src/app
+# Set working directory
+WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
-COPY package*.json ./
-
-# Install dependencies
+# Copy package.json and install dependencies
+COPY package.json ./
 RUN npm install
 
-# Copy the rest of your application code to the container
+# Copy all files for the build
 COPY . .
 
-# Expose the port your app runs on
+# Build the application (replace with your build command if applicable)
+RUN npm run build
+
+# Stage 2: Production
+FROM node:18-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy only the built files from the previous stage
+COPY --from=build /app .
+
+# Expose the application port
 EXPOSE 3000
 
-# Define the command to start your app
+# Start the application
 CMD ["npm", "start"]
-
